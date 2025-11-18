@@ -1,4 +1,3 @@
-```markdown
 # 🐜 Ant Colony Optimization (ACO) – Interactive Route Optimization App
 
 This project is a **custom-built Ant Colony Optimization (ACO)** system implemented in **Python** and deployed using **Streamlit**.  
@@ -142,4 +141,4 @@ This project is perfect for:
 ## 👨‍💻 Author
 
 **Ayush Radharaman Pandey**
-```
+
