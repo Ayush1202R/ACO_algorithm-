@@ -1,3 +1,4 @@
+```markdown
 # 🐜 Ant Colony Optimization (ACO) – Interactive Route Optimization App
 
 This project is a **custom-built Ant Colony Optimization (ACO)** system implemented in **Python** and deployed using **Streamlit**.  
@@ -10,41 +11,34 @@ The app supports:
 - Custom pheromone update rules  
 - Interactive visual output of each ant’s route and pheromone matrix  
 
-This makes the project useful for learning, teaching, and experimenting with optimization techniques inspired by real ant behavior.
-
 ---
 
 ## 📌 What Problems Does This Solve?
 
-Ant Colony Optimization is widely used to solve **combinatorial optimization problems**, especially those involving path planning or route selection.
+Ant Colony Optimization is used to solve **combinatorial optimization problems**, including:
 
-This project can be used to solve and visualize:
-- **Travelling Salesman Problem (TSP)**  
-- **Shortest route finding**  
-- **Logistics & delivery route optimization**  
-- **Network routing**  
-- **Robot path planning**  
-- **Resource allocation problems**  
-
-The model simulates how ants search for paths, update pheromones, and collectively converge toward the best route.
+- Travelling Salesman Problem (TSP)  
+- Shortest path or route finding  
+- Logistics & delivery optimization  
+- Network routing  
+- Robot path planning  
+- Resource allocation  
 
 ---
 
 ## ✨ Features of This ACO Implementation
 
-- Interactive UI: input stations, distances, and number of ants  
-- Multi-ant support (each ant improves the pheromone map)  
-- Custom pheromone update rules:
-  - Ant 1 → **evaporation + deposit**
-  - Ant 2, 3, 4… → **deposit only**
-- Dynamic probability selection using:
-  - Efficiency `η = 1 / distance`
-  - Pheromone intensity `τ`
-  - Probability formula `(η² × τ²)`
-- No revisit until all stations are covered  
-- Pheromone matrices shown after each ant  
-- Easy visualization through Streamlit expanders  
-- Great for teaching optimization algorithms  
+- Interactive UI  
+- Supports multiple ants  
+- Custom pheromone updating:  
+  - Ant 1 → evaporation + deposit  
+  - Others → deposit only  
+- Probability calculation using:  
+  - Efficiency `η = 1/distance`  
+  - Pheromone level `τ`  
+  - Formula `(η² × τ²)`  
+- Prevents revisiting until full tour  
+- Pheromone matrices for each ant shown in expanders  
 
 ---
 
@@ -52,96 +46,100 @@ The model simulates how ants search for paths, update pheromones, and collective
 
 You need Python **3.8+** and these packages:
 
+```
 streamlit
 numpy
-
+```
 
 Install them using:
 
 ```bash
 pip install streamlit numpy
+```
 
+Or using:
 
-or using:
-
+```bash
 pip install -r requirements.txt
+```
 
+---
 
-▶ How to Run the Project
-1. Clone the repository
+## ▶ How to Run the Project
+
+### 1. Clone the repository
+```bash
 git clone https://github.com/your-username/aco.git
 cd aco
+```
 
-2. Install dependencies
+### 2. Install dependencies
+```bash
 pip install streamlit numpy
+```
 
-3. Run the Streamlit application
+### 3. Run the Streamlit app
+```bash
 streamlit run app.py
+```
 
+---
 
+## 🧠 How the Algorithm Works
 
-🧠 How the Algorithm Works
-1. Efficiency
-
-Shorter routes are more attractive:
-
+### 1. Efficiency
+```
 η(i,j) = 1 / distance(i,j)
+```
 
-2. Probability
-
-Ants choose their next station based on:
-
+### 2. Probability
+```
 value(i,j) = (η(i,j)^2) * (τ(i,j)^2)
 p(i,j) = value(i,j) / Σ value(i,k)
+```
 
-3. Pheromone Update
-Ant 1 (Evaporation + Deposit)
+### 3. Pheromone Update
+
+#### Ant 1 (Evaporation + Deposit)
+```
 τ_new = 0.5 * τ_old
 τ_new(u,v) += deposit
+```
 
-Ant 2, 3, 4… (Deposit Only)
+#### Ant 2, 3, 4… (Deposit Only)
+```
 τ_new(u,v) = τ_after_ant1(u,v) + deposit
+```
 
-
-where:
-
+Deposit formula:
+```
 deposit = 1 / total_distance_traveled
+```
 
+---
 
-This allows the pheromone map to evolve over multiple ants, gradually improving the route quality.
-
-
-
-📊 Output You Get
+## 📊 Output You Get
 
 For every ant:
+- Route taken  
+- Total distance  
+- Pheromone deposited  
+- Updated pheromone matrix  
 
-Route taken (station labels)
+---
 
-Total distance
-
-Pheromone deposited
-
-Updated pheromone matrix
-All neatly displayed using Streamlit expanders.
-
-
-🎯 Why This Project Is Useful
+## 🎯 Why This Project Is Useful
 
 This project is perfect for:
+- Optimization learning  
+- Swarm intelligence demo  
+- TSP and routing intuition  
+- Multi-ant experimentation  
+- Visualization of ACO behavior  
 
-Students learning optimization
+---
 
-Demonstrating swarm intelligence
+## 👨‍💻 Author
 
-Building intuition for probabilistic search
-
-Understanding TSP and route optimization
-
-Experimenting with different numbers of ants and distances
-
-It provides visual clarity and a hands-on understanding of how ACO works internally.
-
-👨‍💻 Author
-
-Ayush Radharaman Pandey
+**Ayush Radharaman Pandey**
+```
