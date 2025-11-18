@@ -3,6 +3,11 @@
 This project is a **custom-built Ant Colony Optimization (ACO)** system implemented in **Python** and deployed using **Streamlit**.  
 It allows users to simulate how multiple ants explore different paths, apply pheromone updates, and gradually move toward more optimal solutions.
 
+## 🚀 Live Demo
+
+[![Open in Streamlit](https://img.shields.io/badge/Run%20App-Streamlit-red?logo=streamlit)](https://ant-colony-optimization.streamlit.app/)
+
+
 The app supports:
 - Custom distance matrix  
 - Any number of stations (3–10)  
