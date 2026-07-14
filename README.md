@@ -1,149 +1,75 @@
-# 🐜 Ant Colony Optimization (ACO) – Interactive Route Optimization App
+# 🐜 Ant Colony Optimization (ACO)
 
-This project is a **custom-built Ant Colony Optimization (ACO)** system implemented in **Python** and deployed using **Streamlit**.  
-It allows users to simulate how multiple ants explore different paths, apply pheromone updates, and gradually move toward more optimal solutions.
+[![GitHub license](https://img.shields.io/github/license/Ayush1202R/ACO_algorithm-?style=flat-square)](https://github.com/Ayush1202R/ACO_algorithm-/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/Ayush1202R/ACO_algorithm-?style=flat-square)](https://github.com/Ayush1202R/ACO_algorithm-/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Ayush1202R/ACO_algorithm-/pulls)
+[![Open in Streamlit](https://img.shields.io/badge/Run%20App-Streamlit-red?logo=streamlit&style=flat-square)](https://ant-colony-optimization.streamlit.app/)
 
-## 🚀 Live Demo
+An interactive **Ant Colony Optimization (ACO)** routing simulator implemented in Python and deployed using Streamlit. 
 
-[![Open in Streamlit](https://img.shields.io/badge/Run%20App-Streamlit-red?logo=streamlit)](https://ant-colony-optimization.streamlit.app/)
-
-
-The app supports:
-- Custom distance matrix  
-- Any number of stations (3–10)  
-- Any number of ants (1–20)  
-- Custom pheromone update rules  
-- Interactive visual output of each ant’s route and pheromone matrix  
+This simulator lets users visualize how multiple agents (ants) explore combinations of paths, dynamically deposit pheromones, and execute evaporation cycles to converge on optimal paths for TSP (Travelling Salesman Problem) network configurations.
 
 ---
 
-## 📌 What Problems Does This Solve?
+## 🌟 Key Features
 
-Ant Colony Optimization is used to solve **combinatorial optimization problems**, including:
-
-- Travelling Salesman Problem (TSP)  
-- Shortest path or route finding  
-- Logistics & delivery optimization  
-- Network routing  
-- Robot path planning  
-- Resource allocation  
+* **Custom Routing Matrix**: Input interactive distance matrices for $3$ to $10$ node stations.
+* **Swarm Control Dashboard**: Configure the number of ants ($1$ to $20$), pheromone weights, and evaporation coefficients.
+* **Ant-Specific Pheromone Rules**:
+  - **Ant 1**: Triggers standard evaporation & deposit: $\tau_{\text{new}} = 0.5 \cdot \tau_{\text{old}} + \Delta\tau$.
+  - **Subsequent Ants**: Triggers deposit-only updates on top of Ant 1's grid.
+* **Granular Trace Logs**: Expansions showing the custom route, distance metrics, and updated pheromone matrices per ant.
 
 ---
 
-## ✨ Features of This ACO Implementation
+## ⚙️ Mathematical Overview
 
-- Interactive UI  
-- Supports multiple ants  
-- Custom pheromone updating:  
-  - Ant 1 → evaporation + deposit  
-  - Others → deposit only  
-- Probability calculation using:  
-  - Efficiency `η = 1/distance`  
-  - Pheromone level `τ`  
-  - Formula `(η² × τ²)`  
-- Prevents revisiting until full tour  
-- Pheromone matrices for each ant shown in expanders  
+The choice probability of an ant going from node $i$ to node $j$ is computed as:
+$$P_{i,j} = \frac{(\eta_{i,j})^\beta \cdot (\tau_{i,j})^\alpha}{\sum_{k \in \text{allowed}} (\eta_{i,k})^\beta \cdot (\tau_{i,k})^\alpha}$$
+
+Where:
+- $\eta_{i,j} = \frac{1}{\text{Distance}_{i,j}}$ is the heuristic visibility/efficiency.
+- $\tau_{i,j}$ represents the pheromone density level on edge $(i, j)$.
+- $\alpha, \beta$ are user-controlled weight exponents (set to $2$ in this model).
+
+The pheromone deposit quantity is inversely proportional to the path distance:
+$$\Delta\tau = \frac{1}{\text{Total Distance Traveled}}$$
 
 ---
 
-## 📦 Requirements
+## 📂 Project Structure
 
-You need Python **3.8+** and these packages:
-
-```
-streamlit
-numpy
-```
-
-Install them using:
-
-```bash
-pip install streamlit numpy
-```
-
-Or using:
-
-```bash
-pip install -r requirements.txt
+```text
+ACO_algorithm-/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── PULL_REQUEST_TEMPLATE.md
+├── ACO.py                  # Core Ant Colony Optimization implementation
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md               # Documentation
+├── app.py                  # Streamlit entrypoint script
+└── requirements.txt        # Dependencies
 ```
 
 ---
 
-## ▶ How to Run the Project
+## 🛠️ Run Locally
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/aco.git
-cd aco
+git clone https://github.com/Ayush1202R/ACO_algorithm-.git
+cd ACO_algorithm-
 ```
 
 ### 2. Install dependencies
 ```bash
-pip install streamlit numpy
+pip install -r requirements.txt
 ```
 
 ### 3. Run the Streamlit app
 ```bash
 streamlit run app.py
 ```
-
----
-
-## 🧠 How the Algorithm Works
-
-### 1. Efficiency
-```
-η(i,j) = 1 / distance(i,j)
-```
-
-### 2. Probability
-```
-value(i,j) = (η(i,j)^2) * (τ(i,j)^2)
-p(i,j) = value(i,j) / Σ value(i,k)
-```
-
-### 3. Pheromone Update
-
-#### Ant 1 (Evaporation + Deposit)
-```
-τ_new = 0.5 * τ_old
-τ_new(u,v) += deposit
-```
-
-#### Ant 2, 3, 4… (Deposit Only)
-```
-τ_new(u,v) = τ_after_ant1(u,v) + deposit
-```
-
-Deposit formula:
-```
-deposit = 1 / total_distance_traveled
-```
-
----
-
-## 📊 Output You Get
-
-For every ant:
-- Route taken  
-- Total distance  
-- Pheromone deposited  
-- Updated pheromone matrix  
-
----
-
-## 🎯 Why This Project Is Useful
-
-This project is perfect for:
-- Optimization learning  
-- Swarm intelligence demo  
-- TSP and routing intuition  
-- Multi-ant experimentation  
-- Visualization of ACO behavior  
-
----
-
-## 👨‍💻 Author
-
-**Ayush Radharaman Pandey**
-
